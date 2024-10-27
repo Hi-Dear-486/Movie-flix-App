@@ -1,3 +1,5 @@
+![Alt text](https://firebasestorage.googleapis.com/v0/b/project-gallery-tool.appspot.com/o/gallerytool%2Fmovie%20flix%20pic.JPG?alt=media&token=f966695e-80f6-437f-b2da-ed5c05734efc)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
