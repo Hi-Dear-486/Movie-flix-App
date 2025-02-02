@@ -4,9 +4,9 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate, useLocation } from "react-router-dom";
-
-import "./style.scss";
 import ContentWrapper from "../contentwrapper/page";
+import Image from "next/image";
+import "./style.scss";
 
 const Header = () => {
   const [show, setShow] = useState("top");
@@ -44,7 +44,7 @@ const Header = () => {
     setMobileMenu(false);
   };
 
-  const controlnavbar = () => {
+  const controlnavbar = useCallback(() => {
     if (window.scrollY > 200) {
       if (window.scrollY > lastScrollY && !mobileMenu) {
         setShow("hide");
@@ -55,14 +55,14 @@ const Header = () => {
       setShow("top");
     }
     setLastScrollY(window.scrollY);
-  };
+  }, [lastScrollY, mobileMenu]);
 
   useEffect(() => {
     window.addEventListener("scroll", controlnavbar);
     return () => {
       window.removeEventListener("scroll", controlnavbar);
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, controlnavbar]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -71,7 +71,7 @@ const Header = () => {
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
         <div className="logo" onClick={() => navigate("/")}>
-          <img src="../assets/movix-logo.svg" alt="" />
+          <Image src="../assets/movix-logo.svg" alt="" fill priority />
         </div>
         <ul className="menuItems">
           <li className="menuItem" onClick={() => navigationhandler("movie")}>

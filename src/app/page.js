@@ -1,8 +1,8 @@
 "use client";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { fetchDatafromApi } from "@/utils/page";
 import { getApiConfiguration, getGenres } from "@/store/Homeslice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Homepage from "@/pages/home/page";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "@/components/header/page";
@@ -12,13 +12,8 @@ import Searchresult from "@/pages/searchresult/page";
 import Explore from "@/pages/explore/page";
 const Home = () => {
   const dispatch = useDispatch();
-  const { url } = useSelector((state) => state.home);
-  useEffect(() => {
-    fetchapiconfig();
-    generesCall();
-  }, []);
 
-  const fetchapiconfig = () => {
+  const fetchapiconfig = useCallback(() => {
     fetchDatafromApi("/configuration").then((res) => {
       const url = {
         backdrop: res.images.secure_base_url + "original",
@@ -27,9 +22,9 @@ const Home = () => {
       };
       dispatch(getApiConfiguration(url));
     });
-  };
+  }, [dispatch]); // `dispatch` is a dependency of `fetchapiconfig`
 
-  const generesCall = async () => {
+  const generesCall = useCallback(async () => {
     let promises = [];
     let endPoints = ["tv", "movie"];
     let allGenres = {};
@@ -44,7 +39,12 @@ const Home = () => {
       return genres.map((item) => (allGenres[item.id] = item));
     });
     dispatch(getGenres(allGenres));
-  };
+  }, [dispatch]); // `dispatch` is a dependency of `generesCall`
+
+  useEffect(() => {
+    fetchapiconfig();
+    generesCall();
+  }, [fetchapiconfig, generesCall]); // Now stable functions as dependencies
   return (
     <div>
       <BrowserRouter>

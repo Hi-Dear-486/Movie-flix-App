@@ -3,6 +3,7 @@ import ContentWrapper from "@/components/contentwrapper/page";
 import Switchtab from "@/components/switchtab/page";
 import useFetch from "@/hooks/page";
 import Carousel from "@/components/carousel/page";
+
 const Popular = () => {
   const [endpoint, setEndpoint] = useState("movie");
   const { data, loading } = useFetch(`/${endpoint}/popular`);
@@ -12,7 +13,7 @@ const Popular = () => {
   return (
     <div className="carouselSection">
       <ContentWrapper>
-        <span className="carouselTitle">What's Popular</span>
+        <span className="carouselTitle">What&apos;s Popular</span>
         <Switchtab data={["Movies", "TV Shows"]} onTabChange={onTabChange} />
       </ContentWrapper>
 
