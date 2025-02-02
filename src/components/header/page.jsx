@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
@@ -71,7 +71,13 @@ const Header = () => {
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
         <div className="logo" onClick={() => navigate("/")}>
-          <Image src="../assets/movix-logo.svg" alt="" fill priority />
+          <Image
+            src="../assets/movix-logo.svg"
+            alt="logo"
+            width={150}
+            height={50}
+            className="w-40 h-auto" // Tailwind classes for width and height
+          />
         </div>
         <ul className="menuItems">
           <li className="menuItem" onClick={() => navigationhandler("movie")}>
