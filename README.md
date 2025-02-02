@@ -12,7 +12,7 @@
 />
     <img src="https://img.shields.io/badge/-JavaScript-green?style=for-the-badge&logoColor=white&logo=javascript&color=28A745" alt="javascript" />
     <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-    <img src="https://img.shields.io/badge/-Firebase-orange?style=for-the-badge&logo=firebase&logoColor=black&color=FFCA28" alt="firebase" />
+    <img src="https://img.shields.io/badge/-Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white" alt="reduxtoolkit" />
   </div>
 
   <h3 align="center">A Movie flix App</h3>
@@ -30,7 +30,7 @@
 
 ## <a name="introduction">🤖 Introduction</a>
 
-MovieFlix is a dynamic movie browsing application built with Next.js, leveraging Redux Toolkit for state management and Firebase for data storage. The app features infinite scrolling to enhance user experience, allowing seamless browsing of movies without interruptions
+MovieFlix is a dynamic movie browsing application built with Next.js, leveraging Redux Toolkit for state management. The app features infinite scrolling to enhance user experience, allowing seamless browsing of movies without interruptions
 
 If you're getting started and need assistance or face any bugs, join our active Discord community with over **34k+** members. It's a place where people help each other out.
 
@@ -39,10 +39,9 @@ If you're getting started and need assistance or face any bugs, join our active 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
 - Next.js
-- Firebase
 - JavaScript
 - TailwindCSS
-- ShadCN
+- Redux Toolkit
 
 ## <a name="features">🔋 Features</a>
 
@@ -54,7 +53,6 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 👉 **Complete Responsiveness**: The application works seamlessly on all device types and screen sizes.
 
-👉 **File Upload Using Firebase Storage**: Users can upload and store files securely within the app using firebase storage services.
 
 and many more, including code architecture and reusability
 
@@ -68,21 +66,21 @@ Make sure you have the following installed on your machine:
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
+- [Yarn](https://www.yarnpkg.com/) (Package Manager)
 
 **Cloning the Repository**
 
 ```bash
 git clone https://github.com/Hi-Dear-486/Movie-flix-App.git
-cd Movie-flix-App
+cd  ./
 ```
 
 **Installation**
 
-Install the project dependencies using npm:
+Install the project dependencies using yarn:
 
 ```bash
-npm install
+yarn add
 ```
 
 **Set Up Environment Variables**
@@ -91,20 +89,16 @@ Create a new file named `.env.local` in the root of your project and add the fol
 
 ```env
 #Firebase
-NEXT_PUBLIC_FIREBASE_API_KEY
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-NEXT_PUBLIC_FIREBASE_PROJECT_ID
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-NEXT_PUBLIC_FIREBASE_APP_ID
+VITE_APP_TMDB_TOKEN=
 ```
 
-Replace the placeholder values with your actual Firebase credentials. You can obtain these credentials by signing up on the [Firebase website (https://firebase.google.com/).
+Replace the placeholder values with your actual TMDB credentials. You can obtain these credentials by signing up on the [TMDB Website](https://www.themoviedb.org/)
+
 
 **Running the Project**
 
 ```bash
-npm run dev
+yarn run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
