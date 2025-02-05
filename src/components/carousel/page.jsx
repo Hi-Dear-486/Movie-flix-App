@@ -3,7 +3,6 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import ContentWrapper from "../contentwrapper/page";
@@ -11,12 +10,14 @@ import Img from "../lazyloadimage/page";
 import PosterFallback from "../../../public/assets/avatar.png";
 import CircleRating from "../circleRating/page";
 import Genres from "../genres/page";
+import { useRouter } from "next/navigation";
 import "./style.scss";
+import Link from "next/link";
 
 const Carousel = ({ data, loading, endpoint, title }) => {
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
-  const navigate = useNavigate();
+  const router = useRouter();
   const navigation = (dir) => {
     const container = carouselContainer.current;
 
@@ -61,12 +62,12 @@ const Carousel = ({ data, loading, endpoint, title }) => {
                 ? url.poster + item.poster_path
                 : PosterFallback;
               return (
-                <div
+                <Link
                   key={item.id}
                   className="carouselItem"
-                  onClick={() =>
-                    navigate(`/${item.media_type || endpoint}/${item.id}`)
-                  }
+                  href={`/home/details/${item.media_type || endpoint}/${
+                    item.id
+                  }`}
                 >
                   <div className="posterBlock">
                     <Img src={posterUrl} />
@@ -81,7 +82,7 @@ const Carousel = ({ data, loading, endpoint, title }) => {
                       {dayjs(item.release_Date).format("MMM D, YYYY")}
                     </span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

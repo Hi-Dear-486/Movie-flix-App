@@ -3,10 +3,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
-import { useNavigate, useLocation } from "react-router-dom";
 import ContentWrapper from "../contentwrapper/page";
 import Image from "next/image";
 import "./style.scss";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const [show, setShow] = useState("top");
@@ -14,12 +14,12 @@ const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [query, setQuery] = useState("");
   const [showSearch, setShowSearch] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
+  let router = useRouter();
+  let pathname = usePathname();
 
   const searchqueryhandler = (event) => {
     if (event.key === "Enter" && query.length > 0) {
-      navigate(`/search/${query}`);
+      router.push(`/search/${query}`);
       setTimeout(() => {
         setShowSearch(false);
       }, 1000);
@@ -37,9 +37,9 @@ const Header = () => {
 
   const navigationhandler = (type) => {
     if (type === "movie") {
-      navigate("/explore/movie");
+      router.push("/explore/movie");
     } else {
-      navigate("/explore/tv");
+      router.push("/explore/tv");
     }
     setMobileMenu(false);
   };
@@ -66,11 +66,11 @@ const Header = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [pathname]);
   return (
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
-        <div className="logo" onClick={() => navigate("/")}>
+        <div className="logo" onClick={() => router.push("/")}>
           <Image
             src="../assets/movix-logo.svg"
             alt="logo"

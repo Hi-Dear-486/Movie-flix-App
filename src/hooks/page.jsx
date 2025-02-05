@@ -1,23 +1,26 @@
+"use client";
 import { useEffect, useState } from "react";
 import { fetchDatafromApi } from "@/utils/page";
+
 const useFetch = (url) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading("loading...");
+    if (!url) return;
+    setLoading(true);
     setData(null);
     setError(null);
 
     fetchDatafromApi(url)
       .then((res) => {
-        setLoading(false);
         setData(res);
+        setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
-        setError("Something went wrong!");
+        setError(err.message);
       });
   }, [url]);
 
