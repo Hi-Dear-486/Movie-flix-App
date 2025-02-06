@@ -5,12 +5,13 @@ import { useSelector } from "react-redux";
 import Img from "@/components/lazyloadimage/page";
 import ContentWrapper from "@/components/contentwrapper/page";
 import "./style.scss";
-import { useRouter } from "next/navigation";
+import Trending from "../trending/page";
+import Popular from "../popular/page";
+import TopRated from "../topRated/page";
 
 const Herobanner = () => {
   const [background, setBackground] = useState("");
-  const [query, setQuery] = useState("");
-  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
   const { url } = useSelector((state) => state.home);
 
   const { data, loading } = useFetch("/movie/upcoming");
@@ -20,11 +21,7 @@ const Herobanner = () => {
       data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path;
     setBackground(bg);
   }, [data, url.backdrop]);
-  const searchqueryhandler = (event) => {
-    if (event.key === "Enter" && query.length > 0) {
-      router.push(`/search/${query}`);
-    }
-  };
+
   return (
     <div>
       <div className="herobanner">
@@ -45,14 +42,17 @@ const Herobanner = () => {
               <input
                 type="text"
                 placeholder="Search for a movie or tv show..."
-                onKeyUp={searchqueryhandler}
-                onChange={(e) => setQuery(e.target.value)}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button>Search</button>
             </div>
           </div>
         </ContentWrapper>
       </div>
+      <Trending searchTerm={searchTerm} />
+      <Popular searchTerm={searchTerm} />
+      <TopRated searchTerm={searchTerm} />
     </div>
   );
 };

@@ -10,17 +10,15 @@ import Img from "../lazyloadimage/page";
 import PosterFallback from "../../../public/assets/avatar.png";
 import CircleRating from "../circleRating/page";
 import Genres from "../genres/page";
-import { useRouter } from "next/navigation";
 import "./style.scss";
 import Link from "next/link";
 
-const Carousel = ({ data, loading, endpoint, title }) => {
+const Carousel = ({ data, loading, endpoint, title, searchTerm }) => {
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
-  const router = useRouter();
+
   const navigation = (dir) => {
     const container = carouselContainer.current;
-
     const scrollAmount =
       dir === "left"
         ? container.scrollLeft - (container.offsetWidth + 20)
@@ -42,6 +40,11 @@ const Carousel = ({ data, loading, endpoint, title }) => {
       </div>
     );
   };
+  // 🔥 Filter logic: Sirf wo items jo searchTerm se match karein
+  const filteredData = data?.filter((item) =>
+    (item.title || item.name).toLowerCase().includes(searchTerm?.toLowerCase())
+  );
+
   return (
     <div className="carousel">
       <ContentWrapper>
@@ -57,34 +60,39 @@ const Carousel = ({ data, loading, endpoint, title }) => {
 
         {!loading ? (
           <div className="carouselItems" ref={carouselContainer}>
-            {data?.map((item) => {
-              const posterUrl = item.poster_path
-                ? url.poster + item.poster_path
-                : PosterFallback;
-              return (
-                <Link
-                  key={item.id}
-                  className="carouselItem"
-                  href={`/home/details/${item.media_type || endpoint}/${
-                    item.id
-                  }`}
-                >
-                  <div className="posterBlock">
-                    <Img src={posterUrl} />
-                    <CircleRating
-                      rating={(item.vote_average || 0).toFixed(1)}
-                    />
-                    <Genres data={(item.genre_ids || []).slice(0, 2)} />
-                  </div>
-                  <div className="textBlock">
-                    <span className="title">{item.title || item.name}</span>
-                    <span className="date">
-                      {dayjs(item.release_Date).format("MMM D, YYYY")}
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
+            {filteredData?.length > 0 ? (
+              filteredData.map((item) => {
+                const posterUrl = item.poster_path
+                  ? url.poster + item.poster_path
+                  : PosterFallback;
+
+                return (
+                  <Link
+                    key={item.id}
+                    className="carouselItem"
+                    href={`/home/details/${item.media_type || endpoint}/${
+                      item.id
+                    }`}
+                  >
+                    <div className="posterBlock">
+                      <Img src={posterUrl} />
+                      <CircleRating
+                        rating={(item.vote_average || 0).toFixed(1)}
+                      />
+                      <Genres data={(item.genre_ids || []).slice(0, 2)} />
+                    </div>
+                    <div className="textBlock">
+                      <span className="title">{item.title || item.name}</span>
+                      <span className="date">
+                        {dayjs(item.release_Date).format("MMM D, YYYY")}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })
+            ) : (
+              <p className="noResults">No results found</p>
+            )}
           </div>
         ) : (
           <div className="loadingSkeleton">

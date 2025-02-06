@@ -1,4 +1,4 @@
-"use client"; // mark this file as a client component
+"use client";
 
 import { useEffect } from "react";
 import { fetchDatafromApi } from "@/utils/page";
@@ -8,29 +8,9 @@ import Header from "@/components/header/page";
 import Footer from "@/components/footer/page";
 import Homepage from "./home/page";
 
-// import dynamic from "next/dynamic";
-
-// const Header = dynamic(() => import("@/components/header/page"), {
-//   ssr: false,
-// });
-
-// const Homepage = dynamic(() => import("@/pages/home/page"), { ssr: false });
-// const Searchresult = dynamic(() => import("@/pages/searchresult/page"), {
-//   ssr: false,
-// });
-// // const Explore = dynamic(() => import("@/pages/explore/page"), { ssr: false });
-// const Details = dynamic(() => import("@/pages/details/[mediaType]/[id]/page"), {
-//   ssr: false,
-// });
-
-// const Footer = dynamic(() => import("@/components/footer/page"), {
-//   ssr: false,
-// });
-
 const Home = () => {
   const dispatch = useDispatch();
 
-  // Fetch API configuration and genres on client-side
   useEffect(() => {
     const fetchData = async () => {
       const apiConfigRes = await fetchDatafromApi("/configuration");

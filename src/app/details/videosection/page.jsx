@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
 import "./style.scss";
-
 import ContentWrapper from "@/components/contentwrapper/page";
 import VideoPopup from "@/components/videopopup/page";
 import Img from "@/components/lazyloadimage/page";

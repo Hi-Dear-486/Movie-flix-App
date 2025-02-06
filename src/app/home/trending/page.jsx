@@ -4,7 +4,8 @@ import ContentWrapper from "@/components/contentwrapper/page";
 import Switchtab from "@/components/switchtab/page";
 import useFetch from "@/hooks/page";
 import Carousel from "@/components/carousel/page";
-const Trending = () => {
+
+const Trending = ({ searchTerm }) => {
   const [endpoint, setEndpoint] = useState("day");
   const { data, loading } = useFetch(`/trending/all/${endpoint}`);
   const onTabChange = (tab) => {
@@ -17,7 +18,11 @@ const Trending = () => {
         <Switchtab data={["Day", "Week"]} onTabChange={onTabChange} />
       </ContentWrapper>
 
-      <Carousel data={data?.results} loading={loading} />
+      <Carousel
+        data={data?.results}
+        loading={loading}
+        searchTerm={searchTerm}
+      />
     </div>
   );
 };

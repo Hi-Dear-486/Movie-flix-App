@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { HiOutlineSearch } from "react-icons/hi";
 import { SlMenu } from "react-icons/sl";
 import { VscChromeClose } from "react-icons/vsc";
 import ContentWrapper from "../contentwrapper/page";
@@ -12,34 +11,18 @@ const Header = () => {
   const [show, setShow] = useState("top");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [query, setQuery] = useState("");
-  const [showSearch, setShowSearch] = useState("");
   let router = useRouter();
   let pathname = usePathname();
 
-  const searchqueryhandler = (event) => {
-    if (event.key === "Enter" && query.length > 0) {
-      router.push(`/search/${query}`);
-      setTimeout(() => {
-        setShowSearch(false);
-      }, 1000);
-    }
-  };
-
-  const openSearch = () => {
-    setMobileMenu(false);
-    setShowSearch(true);
-  };
   const openMobileMenu = () => {
     setMobileMenu(true);
-    setShowSearch(false);
   };
 
   const navigationhandler = (type) => {
     if (type === "movie") {
-      router.push("/explore/movie");
+      router.push("/");
     } else {
-      router.push("/explore/tv");
+      router.push("/");
     }
     setMobileMenu(false);
   };
@@ -76,7 +59,7 @@ const Header = () => {
             alt="logo"
             width={150}
             height={50}
-            className="w-40 h-auto" // Tailwind classes for width and height
+            className="w-40 h-auto"
           />
         </div>
         <ul className="menuItems">
@@ -86,12 +69,9 @@ const Header = () => {
           <li className="menuItem" onClick={() => navigationhandler("tv")}>
             TV Shows
           </li>
-          <li className="menuItem">
-            <HiOutlineSearch onClick={openSearch} />
-          </li>
+          <li className="menuItem"></li>
         </ul>
         <div className="mobileMenuItems">
-          <HiOutlineSearch onClick={openSearch} />
           {mobileMenu ? (
             <VscChromeClose onClick={() => setMobileMenu(false)} />
           ) : (
@@ -99,22 +79,6 @@ const Header = () => {
           )}
         </div>
       </ContentWrapper>
-
-      {showSearch && (
-        <div className="searchBar">
-          <ContentWrapper>
-            <div className="searchInput">
-              <input
-                type="text"
-                placeholder="Search for a movie or tv show..."
-                onKeyUp={searchqueryhandler}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <VscChromeClose onClick={() => setShowSearch(false)} />
-            </div>
-          </ContentWrapper>
-        </div>
-      )}
     </header>
   );
 };

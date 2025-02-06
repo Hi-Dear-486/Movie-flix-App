@@ -4,25 +4,8 @@ import ContentWrapper from "@/components/contentwrapper/page";
 import Switchtab from "@/components/switchtab/page";
 import Carousel from "@/components/carousel/page";
 import useFetch from "@/hooks/page";
-// import dynamic from "next/dynamic";
 
-// const ContentWrapper = dynamic(
-//   () => import("@/components/contentwrapper/page"),
-//   {
-//     ssr: false,
-//   }
-// );
-// const Switchtab = dynamic(() => import("@/components/switchtab/page"), {
-//   ssr: false,
-// });
-// const useFetch = dynamic(() => import("@/hooks/page"), {
-//   ssr: false,
-// });
-// const Carousel = dynamic(() => import("@/components/carousel/page"), {
-//   ssr: false,
-// });
-
-const TopRated = () => {
+const TopRated = ({ searchTerm }) => {
   const [endpoint, setEndpoint] = useState("movie");
   const { data, loading } = useFetch(`/${endpoint}/top_rated`);
   const onTabChange = (tab) => {
@@ -35,7 +18,12 @@ const TopRated = () => {
         <Switchtab data={["Movies", "TV Shows"]} onTabChange={onTabChange} />
       </ContentWrapper>
 
-      <Carousel data={data?.results} loading={loading} endpoint={endpoint} />
+      <Carousel
+        data={data?.results}
+        loading={loading}
+        endpoint={endpoint}
+        searchTerm={searchTerm}
+      />
     </div>
   );
 };
